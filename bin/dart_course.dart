@@ -1,47 +1,95 @@
-import 'dart:async';
-import 'dart:io';
-import 'dart:math';
+import 'db_helper.dart';
 
-typedef int shadyFun(int x);
-typedef String nameFun(String x);
 void main(List<String> arguments) {
-  var student = Student(
-      address: 'gaza', average: 99.0, gender: Gender.male, name: 'omar');
+  var color1 = MyColor(12, 45, 32);
+  var color2 = MyColor(20, 30, 10);
+  var color3 = color1 + color2;
+  print(color3.red);
 }
 
-enum Gender { male, female }
+//static
+//final
+//const
+//var
+//dynamic
+enum ColorType { rgb, cmyk }
 
-abstract class Human {
-  String name;
-  Gender gender;
-  String address;
-  Human(this.name, this.gender, this.address);
-  printAllVariables();
-}
-
-class Student extends Human {
-  double average;
-
-  Student({String name, Gender gender, String address, this.average})
-      : super(name, gender, address);
-
-  @override
-  printAllVariables() {
-    print('hello from student');
+class MyColor {
+  int red;
+  int green;
+  int blue;
+  MyColor(this.red, this.green, this.blue);
+  MyColor operator +(MyColor color) {
+    return MyColor(red + color.red, green + color.green, blue + color.blue);
   }
 }
 
-class Teacher extends Human {
-  double salary;
-  Teacher(this.salary, String name, Gender gender, String address)
-      : super(name, gender, address);
+class Student {
+  int age;
+  Student(this.age);
+}
 
-  @override
-  printAllVariables() {
-    // TODO: implement printAllVariables
-    print('hello from teacher');
+class Color {
+  String color;
+  ColorType colorType;
+  Color.rgb(String color) {
+    print('rgb color is $color');
+  }
+  Color.cmyk(String color) {
+    print('cmyk color is $color');
+  }
+  factory Color(ColorType colorType, String color) {
+    if (colorType == ColorType.rgb) {
+      return Color.rgb(color);
+    } else if (colorType == ColorType.cmyk) {
+      return Color.cmyk(color);
+    }
   }
 }
+// enum Gender { male, female }
+
+// class Human {
+//   String name;
+//   Gender gender;
+//   String address;
+
+//   printHello() {
+//     print('hello from human class');
+//   }
+
+//   printBye() {
+//     print('good buy from human class');
+//   }
+// }
+
+// mixin Employee on Human{
+//   String department;
+// }
+
+// class Student implements Human {
+//   @override
+//   String address;
+
+//   @override
+//   Gender gender;
+
+//   @override
+//   String name;
+
+//   @override
+//   printBye() {
+//     // TODO: implement printBye
+//     throw UnimplementedError();
+//   }
+
+//   @override
+//   printHello() {
+//     // TODO: implement printHello
+//     throw UnimplementedError();
+//   }
+// }
+
+// class Teacher with Human,Employee {}
 
 ///////////////////////////////////////////////////////////////////////////
 // int x = 2;
